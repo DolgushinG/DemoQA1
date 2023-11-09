@@ -1,0 +1,17 @@
+from pages.base_page import BasePage
+from locators.main_page_locators import MainPageLocators
+
+
+class MainPage(BasePage):
+    def __init__(self, browser):
+        super().__init__(browser)
+
+    def open(self, url):
+        self.browser.get(url)
+
+    def scroll_down(self):
+        self.browser.execute_script("window.scrollTo(0, 200)")
+
+    def click_main_btn_forms(self):
+        self.wait_and_click(MainPageLocators.main_btn_forms)
+
