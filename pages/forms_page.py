@@ -1,3 +1,5 @@
+import allure
+
 from pages.base_page import BasePage
 from locators.forms_page_locators import FormsPageLocators
 
@@ -9,5 +11,6 @@ class FormsPage(BasePage):
     def open(self, url):
         self.browser.get(url)
 
+    @allure.step("Кликаем по разделу практика")
     def click_practice_form(self):
         self.wait_and_click(FormsPageLocators.practice_form_btn)

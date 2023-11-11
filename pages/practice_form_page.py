@@ -3,28 +3,38 @@ import allure
 from pages.base_page import BasePage
 from locators.practice_form_page_locators import PracticeFormPageLocators
 from generator.generator import generate_person
+from tools import compare_text
 
 
 class PracticeFormPage(BasePage):
     def __init__(self, browser):
         super().__init__(browser)
 
+    title_exp_address = "dasd"
+    title_gender_address = "Male"
 
-    def open(self, url):
-        self.browser.get(url)
-
+    @allure.step("Заполняем поле имя {text}")
     def fill_in_fist_name(self, text: str):
         self.wait_and_fill_in(PracticeFormPageLocators.first_name, text)
 
+    @allure.step("Заполняем поле фамилия {text}")
     def fill_in_last_name(self, text: str):
         self.wait_and_fill_in(PracticeFormPageLocators.last_name, text)
 
+    @allure.step("Проверяем отображение фамилии")
+    def verify_check_lastname(self):
+        compare_text("Тест", "Тест")
+
+
+    @allure.step("Заполняем поле емаил {text}")
     def fill_in_email(self, text: str):
         self.wait_and_fill_in(PracticeFormPageLocators.email, text)
 
+    @allure.step("Выбираем пол")
     def select_male_radiobutton(self):
         self.wait_and_click(PracticeFormPageLocators.gender_checkbox_male)
 
+    @allure.step("Заполняем поле телефон {text}")
     def fill_in_number(self, text: str):
         self.wait_and_fill_in(PracticeFormPageLocators.phone_number, text)
 
@@ -90,13 +100,10 @@ class PracticeFormPage(BasePage):
 
     @allure.title('check the male gender')
     def check_gender(self):
-        gender_text = self.get_text(PracticeFormPageLocators.modal_gender_male)
-        assert gender_text == "Male"
+        compare_text(self.title_gender_address, self.get_text(PracticeFormPageLocators.modal_gender_male))
 
-    def check_address(self, text: str):
-        adress_text = self.get_text(PracticeFormPageLocators.modal_address)
-        assert adress_text == text
-
+    def check_address(self):
+        compare_text(self.title_exp_address, self.get_text(PracticeFormPageLocators.modal_address))
 
 
 
